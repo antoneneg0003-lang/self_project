@@ -1,7 +1,7 @@
 # user  |  Problem solving tool kit | Environment
 
 # Problem solving tool kit
-- Structure architecture
+- Structure 
 - Action Architecture
 - Thinking modes
 - Problem solving phases architecture
