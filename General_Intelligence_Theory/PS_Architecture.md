@@ -1,10 +1,10 @@
 # user  |  Problem solving tool kit | Environment
 
 # Problem solving tool kit
-- Structure
+- Structure architecture
 - Action Architecture
 - Thinking modes
-- Problem solving phases
+- Problem solving phases architecture
 - Strategies/Paradigms
 - Tools and techniques
 
