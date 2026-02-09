@@ -76,3 +76,14 @@ Directions for Layered / Multi-Level Stack:
 - Downward instantiation (abstract → concrete)
 - Cross-layer alignment traversal
 - Layer-by-layer traversal
+
+
+
+
+# CORE REASONING DIRECTIONS
+
+1. Top-Down (Deductive)
+2. Bottom-Up (Inductive)
+3. Forward (Premise → Conclusion)
+4. Backward (Goal → Preconditions)
+5. Bidirectional (Iterative refinement)
