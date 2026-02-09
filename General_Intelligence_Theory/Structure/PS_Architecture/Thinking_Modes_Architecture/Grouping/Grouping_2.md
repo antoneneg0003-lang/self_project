@@ -24,14 +24,17 @@ II. OBJECT-LEVEL THINKING MODES
 ### 3. Decomposition Modes
 - Analytical Thinking [O]
 
-### 4. Structural Manipulation Modes
+### 4. Integration Modes
+- Integration Thinking [O]
+
+### 5. Structural Manipulation Modes
 - Structured Thinking [O]
 - Abstraction (Compression) [O]
 
-### 5. Uncertainty Handling Modes
+### 6. Uncertainty Handling Modes
 - Probabilistic Thinking [O]
 
-### 6. Pattern Transfer Modes
+### 7. Pattern Transfer Modes
 - Analogous Thinking [O]
 
 ==================================================
