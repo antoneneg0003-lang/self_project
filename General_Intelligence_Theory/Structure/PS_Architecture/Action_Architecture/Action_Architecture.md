@@ -65,7 +65,9 @@ Implementation
 ------------------------------------------------------------
 CONTROL & VALIDATION LOOP
 ------------------------------------------------------------
-
+  ↓
+Skill Neede to use the tools
+  ↓
 Implementation Output
   ↓
 Checkpoints / Guardrails (self-check rules)
