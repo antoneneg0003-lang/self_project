@@ -1,0 +1,295 @@
+# FASTAPI BACKEND — COMPLETE DEEP ROADMAP (DASH TREE)
+
+- Core concepts (FastAPI mental model)
+  - ASGI app model
+    - request lifecycle
+      - middleware runs
+        - routing matches
+          - dependency injection resolves
+            - endpoint runs
+              - response serialization
+                - middleware response phase
+  - Starlette foundation awareness
+    - Request/Response objects
+    - Middleware stack
+    - Background tasks (Starlette style)
+  - Pydantic model-driven validation
+    - input parsing
+    - output serialization
+    - error reporting shape
+
+- Project setup (production-friendly)
+  - environment
+    - venv
+    - pinned dependencies
+      - constraints/lock strategy
+    - python version pin
+  - structure (typical)
+    - app/
+      - main.py
+      - api/
+        - routers/
+        - dependencies/
+      - core/
+        - config/
+        - logging/
+        - security/
+      - models/
+      - schemas/
+      - services/
+      - db/
+        - session/
+        - migrations/
+      - clients/
+      - tasks/
+      - tests/
+  - configuration
+    - env vars as source of truth
+      - dev/stage/prod separation
+    - settings object pattern
+      - validation of settings
+      - secrets separation
+
+- Routing (path operations)
+  - app/router setup
+    - APIRouter usage
+      - prefixing
+      - tags
+      - route grouping
+  - path parameters
+    - types (int/uuid/str)
+    - path converters (via type hints)
+  - query parameters
+    - optional vs required
+    - lists and repeated params
+    - pagination params
+      - limit/offset
+      - cursor patterns
+  - request body
+    - JSON bodies
+    - form bodies
+    - multipart upload
+      - file + metadata
+  - response bodies
+    - response_model
+      - include/exclude fields
+      - response_model_exclude_none
+    - response classes
+      - JSONResponse
+      - StreamingResponse
+      - FileResponse
+  - status codes
+    - explicit status_code in decorator
+    - consistent error responses
+
+- Validation (Pydantic patterns)
+  - schema design
+    - input schemas
+      - create/update schemas split
+        - partial update semantics
+    - output schemas
+      - public vs internal fields
+  - field constraints
+    - min/max length
+    - regex constraints
+    - numeric bounds
+  - nested models
+    - list of objects
+    - dict of objects
+  - custom validation
+    - model validators
+    - field validators
+  - serialization rules
+    - datetime serialization
+    - Decimal handling
+    - custom encoders
+
+- Dependency Injection (FastAPI core feature)
+  - Depends()
+    - dependency functions
+      - simple dependencies
+      - dependencies with parameters
+      - nested dependencies (sub-dependencies)
+      - caching behavior (per request)
+    - class-based dependencies
+      - __call__ dependency objects
+  - Security() / security dependencies
+    - auth dependency injection
+      - per-route auth
+      - per-router auth
+  - common DI use cases
+    - database session injection
+    - current_user injection
+    - feature flags injection
+    - rate limit checker injection
+    - request-id injection
+  - DI anti-patterns to avoid
+    - heavy work in dependency without caching
+    - global mutable state
+
+- Middleware (cross-cutting)
+  - built-in/typical middleware
+    - CORS middleware
+    - trusted host middleware
+    - gzip middleware
+  - custom middleware
+    - request timing
+    - request-id correlation
+    - structured logging injection
+    - auth context injection (careful)
+    - response header injection
+  - middleware ordering
+    - security-sensitive ordering
+    - exception behavior through middleware
+
+- Error handling
+  - HTTPException
+    - status + detail
+    - headers
+  - validation errors
+    - request validation error handling
+      - customizing error shape
+  - exception handlers
+    - global exception handler
+    - domain errors -> HTTP mapping
+    - internal errors -> safe 500 responses
+  - logging exceptions
+    - avoid leaking secrets
+    - stack traces only in dev
+
+- AuthN (authentication)
+  - auth strategies
+    - session cookie auth (less common with pure API)
+    - bearer token auth
+      - opaque tokens
+      - JWT tokens
+        - signature verification
+        - expiry
+        - refresh token pattern
+        - revocation strategy
+    - OAuth2 flows (concept)
+      - authorization code + PKCE
+  - password storage rules
+    - hashing (bcrypt/argon2 concept)
+    - password policy
+    - lockout / rate limiting
+  - login flow
+    - issue tokens
+    - rotate refresh tokens
+    - revoke on logout (if supported)
+
+- AuthZ (authorization)
+  - role-based access control
+    - roles
+    - permissions mapping
+  - object-level authorization
+    - per-resource checks
+  - tenant isolation
+    - tenant id propagation
+    - database filtering enforcement
+
+- Database integration
+  - SQLAlchemy/ORM approach (common)
+    - engine creation
+      - pool sizing
+      - timeouts
+    - session lifecycle
+      - session per request (DI)
+      - commit/rollback patterns
+      - transaction boundaries
+    - model design
+      - constraints and indexes
+      - relationships
+    - query patterns
+      - pagination queries
+      - avoiding N+1
+  - async DB approach
+    - async drivers
+    - async session lifecycle
+  - migrations
+    - Alembic
+      - autogenerate caution
+      - forward-only migrations
+      - zero-downtime patterns (advanced)
+
+- Background tasks
+  - BackgroundTasks
+    - enqueue small tasks (email, webhook, logging)
+    - dependency integration (task object reused)
+  - when NOT to use in-process background tasks
+    - long running jobs
+    - tasks needing retries
+  - external task queues (production)
+    - Celery/RQ concepts
+    - idempotency keys
+    - dead-letter/retry strategy
+
+- Performance
+  - request timeouts
+  - connection pooling (DB + HTTP clients)
+  - caching
+    - in-memory cache (per-process)
+    - Redis cache (distributed)
+      - TTL strategy
+      - stampede mitigation
+  - pagination everywhere
+  - streaming large responses
+  - profiling
+    - CPU profiling
+    - memory profiling
+
+- Observability
+  - logging
+    - structured logs
+    - correlation ids
+    - redaction
+  - metrics
+    - request count/latency/error rate
+  - tracing (advanced)
+    - distributed trace ids
+    - spans for DB/HTTP calls
+
+- Testing
+  - unit tests
+    - services
+    - utils
+  - integration tests
+    - test DB
+    - migrations in CI
+  - API tests
+    - TestClient
+    - auth scenarios
+    - permission tests
+    - pagination/filter tests
+  - load tests (advanced)
+    - latency p95
+    - soak tests
+
+- OpenAPI / Docs
+  - automatic schema generation
+  - customizing docs
+    - tags
+    - summaries/descriptions
+    - examples
+  - disabling docs in production (policy choice)
+
+- Deployment (FastAPI)
+  - ASGI server
+    - uvicorn basics
+    - proxy headers behavior
+    - worker processes strategy
+  - process management
+    - multiple workers for multi-core
+    - graceful shutdown
+  - reverse proxy
+    - TLS termination
+    - request size limits
+    - timeouts
+  - containers
+    - Dockerfile best practices
+    - healthcheck endpoints
+  - CI/CD
+    - lint + tests + type check
+    - build artifact
+    - deploy + migrate
+    - rollback plan
